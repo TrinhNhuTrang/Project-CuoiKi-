@@ -1,0 +1,336 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FCF8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:background="#DEFEE0">
+
+        <!-- Thanh tiêu đề -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:background="#FFFFFF">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:padding="6dp"
+                android:src="@drawable/ic_back_arrow"/>
+
+            <ImageView
+                android:id="@+id/img_logo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_logo" />
+
+            <TextView
+                android:layout_width="187dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@id/btn_back"
+                android:text="Search"
+                android:textColor="#191C19"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_bell" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_account_circle" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Thanh tìm kiếm -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="#DEFEE0">
+
+            <EditText
+                android:id="@+id/edtSearch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#EAF1EA"
+                android:hint="Tìm địa điểm"
+                android:paddingHorizontal="12dp"
+                android:singleLine="true"
+                android:text="Đà Nẵng"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/btnFilter"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
+                android:text="☷ Bộ lọc"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:backgroundTint="#287D38"/>
+        </LinearLayout>
+
+        <!-- Danh mục tỉnh thành -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="18dp"
+            android:background="#DEFEE0"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <Button
+                    android:text="✓ Tất cả"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:backgroundTint="#2E7D32"
+                    />
+
+                <Button
+                    android:text="Quảng Nam"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:backgroundTint="#FFFFFF"/>
+
+
+                <Button
+                    android:text="Lâm Đồng"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:backgroundTint="#FFFFFF"/>
+
+                <Button
+                    android:text="Kiên Giang"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:backgroundTint="#FFFFFF"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Loại hình du lịch -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="18dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <Button
+                    android:text="Thiên nhiên"
+                    android:textColor="#40493D"
+                    android:backgroundTint="#DDECDF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+
+                    />
+
+                <Button
+                    android:text="Di tích văn hóa"
+                    android:textColor="#40493D"
+                    android:backgroundTint="#DDECDF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"/>
+
+                <Button
+                    android:text="Nghỉ dưỡng biển"
+                    android:textColor="#40493D"
+                    android:backgroundTint="#DDECDF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Thông tin kết quả -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="15dp"
+            android:text="▏ Tìm thấy 24 địa điểm du lịch phù hợp tại Việt Nam"
+            android:textColor="#344238"
+            android:background="@drawable/bg_input_sage"
+            android:textSize="12sp"/>
+
+        <!-- Địa điểm 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:background="#FFFFFF"
+            android:elevation="3dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:id="@+id/imgBaNa"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="Bà Nà Hills"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_dalat"  />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|start"
+                    android:layout_margin="10dp"
+                    android:padding="7dp"
+                    android:background="#287D38"
+                    android:text="◉ Biểu tượng du lịch"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="10dp"
+                    android:padding="8dp"
+                    android:background="#FFFFFF"
+                    android:text="Vé từ: 900.000 đ/người"
+                    android:textColor="#287D38"
+                    android:textStyle="bold"
+                    android:textSize="11sp"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:text="Bà Nà Hills &amp; Cầu Vàng"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#1D2B21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="📍 Hòa Vang, Đà Nẵng"
+                    android:textSize="11sp"
+                    android:textColor="#4E7652"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="Chiêm ngưỡng cây cầu vàng nâng đỡ bởi đôi bàn tay khổng lồ giữa biển mây, hòa mình trong không gian tuyệt đẹp."
+                    android:textSize="11sp"
+                    android:textColor="#68746A"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="Cáp treo kỷ lục     |     Khí hậu 4 mùa"
+                    android:textSize="10sp"
+                    android:textColor="#287D38"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Địa điểm 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="15dp"
+            android:background="#FFFFFF"
+            android:elevation="3dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgSonTra"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_dalat"
+                android:contentDescription="Bán đảo Sơn Trà"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:text="Bán đảo Sơn Trà &amp; Chùa Linh Ứng"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="#1D2B21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="📍 Sơn Trà, Đà Nẵng"
+                    android:textSize="11sp"
+                    android:textColor="#4E7652"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="Vé tham quan: Miễn phí"
+                    android:textSize="11sp"
+                    android:textColor="#287D38"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -116,6 +116,7 @@
 
                 <!-- Icon Filter/Biểu đồ bên phải -->
                 <ImageView
+                    android:id="@+id/ic_chart"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
