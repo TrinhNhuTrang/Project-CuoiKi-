@@ -21,8 +21,6 @@
             </intent-filter>
         </activity>
 
-
-
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -50,6 +48,15 @@
 
         <activity
             android:name=".TaoChuyenDiActivity"
+            android:exported="false" />
+
+        <!-- BỔ SUNG 2 MÀN HÌNH CHI TIẾT VÀ ĐÁNH GIÁ -->
+        <activity
+            android:name=".DetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ReviewActivity"
             android:exported="false" />
     </application>
 
