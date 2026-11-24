@@ -1,590 +1,441 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="#E8F8EA">
+    android:background="@color/home_background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <!-- HEADER -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="64dp"
+        android:background="@color/home_toolbar"
         android:gravity="center_vertical"
-        android:paddingHorizontal="16dp"
-        android:background="#FFFFFF">
-
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
 
         <ImageView
             android:id="@+id/img_logo"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="12dp"
-            android:src="@drawable/ic_logo" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:importantForAccessibility="no"
+            android:padding="5dp"
+            android:src="@drawable/ic_logo_trees"
+            app:tint="@color/home_action" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
-                android:text="Việt Hành"
-                android:textColor="#287D38"
-                android:textStyle="bold"
-                android:textSize="14sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/app_name"
+                android:textColor="@color/home_action"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:text="Home"
-                android:textColor="#526354"
-                android:textSize="10sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/home_tab_subtitle"
+                android:textColor="@color/text_sub"
+                android:textSize="11sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_bell" />
 
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_bell" />
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_account_circle" />
-        </LinearLayout>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="16dp"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_account_circle"
+            app:shapeAppearanceOverlay="@style/CircleImage" />
     </LinearLayout>
 
-    <!-- NỘI DUNG CÓ THỂ CUỘN -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
-            android:paddingBottom="15dp">
+            android:paddingTop="16dp"
+            android:paddingBottom="36dp">
 
-            <!-- TIÊU ĐỀ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="13dp"
-                android:paddingTop="14dp">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:text="Địa điểm yêu thích"
-                    android:textSize="21sp"
-                    android:textStyle="bold"
-                    android:textColor="#17271B"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"/>
+                    android:text="@string/favorite_title"
+                    android:textColor="@color/text_dark"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:text="12"
-                    android:textSize="10sp"
-                    android:textColor="#287D38"
+                    android:id="@+id/favoriteCount"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_chip"
+                    android:backgroundTint="@color/home_icon_selected"
                     android:gravity="center"
-
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"/>
+                    android:textColor="@color/home_action"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    tools:text="12"
+                    tools:visibility="visible" />
             </LinearLayout>
 
             <TextView
-                android:text="12 địa điểm đã lưu vào cẩm nang du lịch xanh của bạn"
-                android:textSize="12sp"
-                android:textColor="#526354"
-                android:paddingHorizontal="13dp"
-                android:layout_marginTop="3dp"
+                android:id="@+id/favoriteSummary"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="4dp"
+                android:minHeight="18dp"
+                android:textColor="@color/text_sub"
+                android:textSize="13sp"
+                tools:text="12 địa điểm đã lưu vào cẩm nang du lịch xanh của bạn" />
 
-            <!-- THANH TÌM KIẾM -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginHorizontal="13dp"
-                android:layout_marginTop="11dp"
+                android:layout_height="44dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_card"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="12dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp">
 
-                >
-
-                <TextView
-                    android:text="⌕"
-                    android:textSize="23sp"
-                    android:textColor="#68796B"
-                    android:layout_width="25dp"
-                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_home_search" />
 
                 <EditText
                     android:id="@+id/edtSearch"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
-                    android:background="#EAF1EA"
-                    android:hint="Tìm kiếm trong mục yêu thích..."
-                    android:paddingHorizontal="12dp"
+                    android:background="@null"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/favorite_search_hint"
+                    android:inputType="text"
+                    android:padding="0dp"
                     android:singleLine="true"
-                    android:textSize="13sp" />
+                    android:textColor="@color/text_dark"
+                    android:textColorHint="@color/text_gray"
+                    android:textSize="14sp" />
 
-                <TextView
-                    android:layout_width="25dp"
-                    android:layout_height="wrap_content"
-                    android:text=" ☷ "
-                    android:textColor="#68796B"
-                    android:textSize="19sp" />
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_filter_tune"
+                    app:tint="@color/text_gray" />
             </LinearLayout>
 
-            <!-- DANH MỤC -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_marginTop="8dp"
-                android:scrollbars="none"
-                android:paddingStart="5dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:clipToPadding="false"
+                android:paddingHorizontal="16dp"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    >
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <Button
+                    <TextView
                         android:id="@+id/tabAll"
-                        android:text="Tất cả (12)"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="bold"
-                        android:textSize="11sp"
-                        android:gravity="center"
-                        android:paddingHorizontal="15dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_margin="2dp"
-                        android:backgroundTint="#2E7D32"/>
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_chip"
+                        android:backgroundTint="@color/green_primary"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/home_catalog_all"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        tools:text="Tất cả (12)" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/tabNature"
-                        android:text="Thiên nhiên &amp; Núi (5)"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="11sp"
-                        android:gravity="center"
-                        android:paddingHorizontal="14dp"
-                        android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_margin="2dp"
-                        android:backgroundTint="#FFFFFF"/>
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_chip"
+                        android:backgroundTint="@color/white"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/favorite_category_nature"
+                        android:textColor="@color/text_dark"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        tools:text="Thiên nhiên &amp; Núi (5)" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/tabIsland"
-                        android:text="Biển đảo (4)"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="11sp"
-                        android:gravity="center"
-                        android:paddingHorizontal="14dp"
-                        android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_margin="2dp"
-                        android:backgroundTint="#FFFFFF"/>
-                    <Button
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_chip"
+                        android:backgroundTint="@color/white"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/home_category_islands"
+                        android:textColor="@color/text_dark"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        tools:text="Biển đảo (4)" />
+
+                    <TextView
                         android:id="@+id/tabCaoNguyen"
-                        android:text="Cao nguyên (0)"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="11sp"
-                        android:gravity="center"
-                        android:paddingHorizontal="14dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_margin="2dp"
-                        android:backgroundTint="#FFFFFF"/>
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_chip"
+                        android:backgroundTint="@color/white"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/favorite_category_highlands"
+                        android:textColor="@color/text_dark"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <!-- SẮP XẾP -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="13dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/btnSort"
-                    android:text=" Sắp xếp: Mới lưu gần đây &lt;"
-                    android:textSize="10sp"
-                    android:textColor="#344238"
-                    android:gravity="center"
-                    android:paddingHorizontal="10dp"
-
                     android:layout_width="wrap_content"
-                    android:layout_height="28dp"/>
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_card"
+                    android:backgroundTint="@color/home_icon_surface"
+                    android:drawableStart="@drawable/ic_sort"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="8dp"
+                    android:text="@string/favorite_sort_recent"
+                    android:textColor="@color/text_dark"
+                    android:textSize="12sp" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:text="▤"
-                    android:textSize="17sp"
-                    android:textColor="#287D38"
-                    android:gravity="center"
-
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"/>
-
-                <TextView
-                    android:text="▦"
-                    android:textSize="17sp"
-                    android:textColor="#89958A"
-                    android:gravity="center"
-                    android:layout_width="25dp"
-                    android:layout_height="28dp"/>
-            </LinearLayout>
-
-            <!-- CARD VỊNH HẠ LONG -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginTop="4dp"
-                android:orientation="vertical"
-
-                android:elevation="2dp">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="165dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bg_dalat"
-                        android:contentDescription="Vịnh Hạ Long"/>
-
-                    <TextView
-                        android:text="◈ Di sản UNESCO"
-                        android:textSize="9sp"
-                        android:textColor="#287D38"
-                        android:paddingHorizontal="9dp"
-                        android:paddingVertical="4dp"
-                        android:layout_margin="10dp"
-                        android:layout_gravity="top|start"
-                        android:background="#FFFFFF"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:id="@+id/favoriteHaLong"
-                        android:text="♥"
-                        android:textSize="19sp"
-                        android:textColor="#C62828"
-                        android:gravity="center"
-
-                        android:layout_gravity="top|end"
-                        android:layout_margin="10dp"
-                        android:layout_width="31dp"
-                        android:layout_height="31dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_gravity="bottom"
-                        android:gravity="center_vertical"
-                        android:paddingHorizontal="10dp"
-                        android:background="#55000000">
-
-                        <TextView
-                            android:text="⌖ Hạ Long, Quảng Ninh"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10sp"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:text="⭐ 4.9 (3.2k)"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                </FrameLayout>
+                    android:layout_weight="1" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="13dp"
-                    android:background="@color/white">
-
-                    <TextView
-                        android:text="Vịnh Hạ Long"
-                        android:textColor="#17271B"
-                        android:textStyle="bold"
-                        android:textSize="15sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:text="Kỳ quan thiên nhiên thế giới với hàng nghìn đảo đá..."
-                        android:textColor="#526354"
-                        android:textSize="10sp"
-                        android:layout_marginTop="2dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <!-- GIÁ VÉ -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="27dp"
-                        android:layout_marginTop="9dp"
-                        android:gravity="center_vertical"
-                        android:paddingHorizontal="9dp"
-                        android:background="#E8F8EA"
-                        >
-
-                        <TextView
-                            android:text="▧ Vé tham quan"
-                            android:textColor="#526354"
-                            android:textSize="10sp"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:text="290.000đ"
-                            android:textColor="#287D38"
-                            android:textStyle="bold"
-                            android:textSize="12sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-
-                    <!-- NÚT CHỨC NĂNG -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="38dp"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/detailHaLong"
-                            android:text="Xem chi tiết ›"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:textSize="11sp"
-                            android:gravity="center"
-                            android:background="#E3F2E4"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent"/>
-
-                        <TextView
-                            android:id="@+id/addHaLong"
-                            android:text="⊕ Thêm lịch trình"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold"
-                            android:textSize="11sp"
-                            android:gravity="center"
-                            android:background="#2E7D32"
-                            android:layout_marginStart="7dp"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- CARD MÙ CANG CHẢI -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginTop="14dp"
-                android:orientation="vertical"
-
-                android:elevation="2dp">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="165dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bg_dalat"
-                        android:contentDescription="Mù Cang Chải"/>
-
-                    <TextView
-                        android:text="🌾 Mùa lúa chín"
-                        android:textSize="9sp"
-                        android:textColor="#9A5A00"
-                        android:paddingHorizontal="9dp"
-                        android:paddingVertical="4dp"
-                        android:layout_margin="10dp"
-                        android:background="@color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:id="@+id/favoriteMuCangChai"
-                        android:text="♥"
-                        android:textSize="19sp"
-                        android:textColor="#C62828"
-                        android:gravity="center"
-
-                        android:layout_gravity="top|end"
-                        android:layout_margin="10dp"
-                        android:layout_width="31dp"
-                        android:layout_height="31dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_gravity="bottom"
-                        android:gravity="center_vertical"
-                        android:paddingHorizontal="10dp"
-                        android:background="#55000000">
-
-                        <TextView
-                            android:text="⌖ Mù Cang Chải, Yên Bái"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10sp"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:text="⭐ 4.8 (1.5k)"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                </FrameLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="13dp">
-
-                    <TextView
-                        android:text="Ruộng bậc thang Mù Cang Chải"
-                        android:textColor="#17271B"
-                        android:textStyle="bold"
-                        android:textSize="15sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:text="Khám phá mùa vàng giữa núi rừng Tây Bắc."
-                        android:textColor="#526354"
-                        android:textSize="10sp"
-                        android:layout_marginTop="3dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="27dp"
-                    android:layout_marginTop="9dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:background="@drawable/bg_card"
+                    android:backgroundTint="@color/home_icon_surface"
                     android:gravity="center_vertical"
-                    android:paddingHorizontal="9dp"
-                    android:background="#E8F8EA"
-                    >
+                    android:orientation="horizontal"
+                    android:padding="3dp">
 
-                    <TextView
-                        android:text="▧ Vé tham quan"
-                        android:textColor="#526354"
-                        android:textSize="10sp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_card"
+                        android:importantForAccessibility="no"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_favorite_list" />
 
-                    <TextView
-                        android:text="290.000đ"
-                        android:textColor="#287D38"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-
-                        android:text="Xem chi tiết ›"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="11sp"
-                        android:gravity="center"
-                        android:background="#E3F2E4"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"/>
-
-                    <TextView
-
-                        android:text="⊕ Thêm lịch trình"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="bold"
-                        android:textSize="11sp"
-                        android:gravity="center"
-                        android:background="#2E7D32"
-                        android:layout_marginStart="7dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"/>
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_favorite_grid"
+                        app:tint="@color/text_sub" />
                 </LinearLayout>
             </LinearLayout>
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:id="@+id/favoritePlacesPlaceholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:importantForAccessibility="noHideDescendants"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="368dp"
+                        android:background="@drawable/bg_card"
+                        android:clipToOutline="true">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="192dp"
+                            android:background="@color/home_empty_image" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="368dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_card"
+                        android:clipToOutline="true">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="192dp"
+                            android:background="@color/home_empty_image" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="368dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_card"
+                        android:clipToOutline="true">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="192dp"
+                            android:background="@color/home_empty_image" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="368dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_card"
+                        android:clipToOutline="true">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="192dp"
+                            android:background="@color/home_empty_image" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/favoritePlaces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/favoriteTip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_note_card"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_card"
+                    android:backgroundTint="@color/green_primary"
+                    android:importantForAccessibility="no"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_leaf_sprout"
+                    app:tint="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/favorite_tip_title"
+                        android:textColor="@color/text_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/favorite_tip_body"
+                        android:textColor="@color/text_sub"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/favoriteDiscover"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_card"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:minHeight="42dp"
+                        android:paddingHorizontal="12dp"
+                        android:text="@string/discover_places"
+                        android:textColor="@color/home_action"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <!-- BOTTOM NAVIGATION -->
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        app:elevation="8dp"
+        android:background="@color/home_toolbar"
         app:itemIconSize="22dp"
         app:itemIconTint="@color/bottom_nav_color"
         app:itemTextColor="@color/bottom_nav_color"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
-
 </LinearLayout>

@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/green_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- THANH TOP BAR HÌNH CHỮ NHẬT TRẮNG VUÔNG GÓC -->
     <LinearLayout
@@ -55,8 +57,9 @@
             android:layout_height="32dp"
             android:layout_marginStart="12dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_avatar"
-            app:shapeAppearanceOverlay="@style/CircleImage" />
+            android:src="@drawable/ic_account_circle"
+            app:shapeAppearanceOverlay="@style/CircleImage"
+            tools:src="@drawable/img_avatar" />
     </LinearLayout>
 
     <ScrollView
@@ -78,8 +81,10 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/green_soft"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/img_trang_an" />
+                    tools:src="@drawable/img_trang_an"
+                    android:id="@+id/placeCover" />
 
                 <ImageView
                     android:id="@+id/btnBack"
@@ -113,7 +118,8 @@
                         android:layout_marginStart="8dp"
                         android:background="@drawable/bg_circle_white"
                         android:padding="9dp"
-                        android:src="@drawable/ic_heart_filled" />
+                        android:src="@drawable/ic_heart_outline"
+                        tools:src="@drawable/ic_heart_filled" />
                 </LinearLayout>
 
                 <TextView
@@ -125,10 +131,11 @@
                     android:background="@drawable/bg_badge"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="4dp"
-                    android:text="🏛 DI SẢN KÉP UNESCO"
                     android:textColor="@color/green_dark"
                     android:textSize="11sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="🏛 DI SẢN KÉP UNESCO"
+                    android:id="@+id/placeBadge" />
             </FrameLayout>
 
             <!-- KHỐI THÔNG TIN (đè lên ảnh -24dp) -->
@@ -143,18 +150,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quần thể danh thắng Tràng An"
                     android:textColor="@color/text_dark"
                     android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Quần thể danh thắng Tràng An"
+                    android:id="@+id/placeName" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="📍 Xã Trường Yên, huyện Hoa Lư, tỉnh Ninh Bình"
                     android:textColor="@color/text_gray"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="📍 Xã Trường Yên, huyện Hoa Lư, tỉnh Ninh Bình"
+                    android:id="@+id/placeAddress" />
 
                 <!-- 3 THÔNG SỐ -->
                 <LinearLayout
@@ -175,17 +184,19 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="⭐ 4.9"
                             android:textColor="@color/green_dark"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:text="⭐ 4.9"
+                            android:id="@+id/placeRating" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2,840 đánh giá"
                             android:textColor="@color/text_gray"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            tools:text="2,840 đánh giá"
+                            android:id="@+id/placeRatingCount" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -198,17 +209,19 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="250.000đ"
                             android:textColor="@color/green_dark"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:text="250.000đ"
+                            android:id="@+id/placePrice" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vé thuyền/ người"
                             android:textColor="@color/text_gray"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            tools:text="Vé thuyền/ người"
+                            android:id="@+id/placePriceUnit" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -221,10 +234,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3 - 4 giờ"
                             android:textColor="@color/green_dark"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:text="3 - 4 giờ"
+                            android:id="@+id/placeVisitDuration" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -307,94 +321,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:lineSpacingExtra="3dp"
-                    android:text="Di sản Văn hóa và Thiên nhiên Thế giới được UNESCO công nhận kép. Tràng An nổi tiếng với hệ thống hang động đá vôi kỳ vĩ, thung lũng nước ngập trong xanh ngọc bích và các di tích đền đài ngàn năm tuổi thiêng liêng."
                     android:textColor="@color/text_gray"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    tools:text="Di sản Văn hóa và Thiên nhiên Thế giới được UNESCO công nhận kép. Tràng An nổi tiếng với hệ thống hang động đá vôi kỳ vĩ, thung lũng nước ngập trong xanh ngọc bích và các di tích đền đài ngàn năm tuổi thiêng liêng."
+                    android:id="@+id/placeDescription" />
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/placeServices"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_soft"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🚣"
-                            android:textSize="22sp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Thuyền nan"
-                                android:textColor="@color/green_dark"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Lộ trình 3 tuyến"
-                                android:textColor="@color/text_gray"
-                                android:textSize="10sp" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_soft"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🛕"
-                            android:textSize="22sp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Đền đài ngàn năm"
-                                android:textColor="@color/green_dark"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Đền Trình, Hành Cung"
-                                android:textColor="@color/text_gray"
-                                android:textSize="10sp" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -414,14 +354,71 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Xem tất cả (28)"
+                        android:text="@string/view_all_photos"
                         android:textColor="@color/green_primary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:id="@+id/placeGalleryAction"
+                        tools:text="Xem tất cả (28)" />
                 </LinearLayout>
 
-                <View
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/placeGallery"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <TextView
+                    android:id="@+id/placeReviewsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/reviews_title"
+                    android:textColor="@color/text_dark"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/placeReviewHighlights"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <TextView
+                    android:id="@+id/placeMapTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/map_section_title"
+                    android:textColor="@color/text_dark"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/placeOpenMap"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/map_open_action"
+                    android:textColor="@color/green_primary"
+                    app:strokeColor="@color/green_primary" />
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/placeMapPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_note_card"
+                    android:clipToOutline="true"
+                    android:padding="1dp"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -435,22 +432,9 @@
         android:padding="12dp">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_button_outline"
-            android:gravity="center"
-            android:text="📍 Chỉ đường"
-            android:textColor="@color/green_primary"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/btnAddPlan"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1.6"
             android:background="@drawable/bg_button"
             android:gravity="center"
             android:text="✔ Thêm vào lịch trình"

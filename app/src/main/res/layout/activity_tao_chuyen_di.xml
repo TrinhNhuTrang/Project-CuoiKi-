@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F3F8F1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- 1. Thanh tiêu đề trên cùng (Header) -->
     <RelativeLayout
@@ -181,9 +182,9 @@
                             android:background="@null"
                             android:hint="Nhập tên chuyến đi..."
                             android:inputType="textCapSentences"
-                            android:text="Khám phá Đà Lạt mộng mơ"
                             android:textColor="#191C19"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            tools:text="Khám phá Đà Lạt mộng mơ" />
 
                         <ImageView
                             android:layout_width="28dp"
@@ -232,9 +233,9 @@
                             android:background="@null"
                             android:hint="Chọn hoặc nhập tỉnh thành..."
                             android:inputType="textCapWords"
-                            android:text="Đà Lạt, Lâm Đồng"
                             android:textColor="#191C19"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            tools:text="Đà Lạt, Lâm Đồng" />
 
                         <ImageView
                             android:id="@+id/btn_pick_location"
@@ -261,13 +262,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="1dp"
-                                android:background="@drawable/bg_chip_selected"
+                                android:background="@drawable/bg_chip_unselected"
                                 android:paddingHorizontal="14dp"
                                 android:paddingVertical="7dp"
-                                android:text="✓ Đà Lạt"
-                                android:textColor="#FFFFFF"
+                                android:text="Đà Lạt"
+                                android:textColor="@color/text_dark"
                                 android:textSize="13sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:text="✓ Đà Lạt" />
 
                             <TextView
                                 android:id="@+id/chip_ninhbinh"
@@ -355,10 +357,10 @@
                             android:includeFontPadding="false"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
-                            android:text="3 ngày 2 đêm"
                             android:textColor="#275D23"
                             android:textSize="11sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:text="3 ngày 2 đêm" />
                     </RelativeLayout>
 
                     <!-- 2 ô Bắt đầu & Kết thúc -->
@@ -405,10 +407,11 @@
                                     android:id="@+id/tv_start_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="15/11/2026"
+                                    android:hint="@string/trip_date_start_hint"
                                     android:textColor="#191C19"
                                     android:textSize="14sp"
-                                    android:textStyle="bold" />
+                                    android:textStyle="bold"
+                                    tools:text="15/11/2026" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -448,10 +451,11 @@
                                     android:id="@+id/tv_end_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="17/11/2026"
+                                    android:hint="@string/trip_date_end_hint"
                                     android:textColor="#191C19"
                                     android:textSize="14sp"
-                                    android:textStyle="bold" />
+                                    android:textStyle="bold"
+                                    tools:text="17/11/2026" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -482,7 +486,7 @@
                                     android:id="@+id/tv_cal_month"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Tháng 11, 2026"
+                                    tools:text="Tháng 11, 2026"
                                     android:textColor="#191C19"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
@@ -503,6 +507,7 @@
 
                                 <TextView
                                     android:id="@+id/btn_cal_prev"
+                                    android:contentDescription="@string/trip_calendar_previous_month"
                                     android:layout_width="28dp"
                                     android:layout_height="28dp"
                                     android:background="@drawable/bg_circle_nav_btn"
@@ -514,6 +519,7 @@
 
                                 <TextView
                                     android:id="@+id/btn_cal_next"
+                                    android:contentDescription="@string/trip_calendar_next_month"
                                     android:layout_width="28dp"
                                     android:layout_height="28dp"
                                     android:layout_marginStart="8dp"
@@ -542,111 +548,11 @@
                             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="CN" android:textColor="#B71C1C" android:textSize="12sp" android:textStyle="bold" />
                         </LinearLayout>
 
-                        <!-- Tuần 1: trống T2-T7, CN = 1 -->
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="38dp" android:gravity="center_vertical" android:orientation="horizontal">
-                            <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="6" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="1" android:textColor="#757575" android:textSize="13sp" />
-                        </LinearLayout>
-
-                        <!-- Tuần 2: 2 - 8 -->
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="38dp" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="2" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="3" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="4" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="5" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="6" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="7" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="8" android:textColor="#757575" android:textSize="13sp" />
-                        </LinearLayout>
-
-                        <!-- Tuần 3: 9 - 15 (Ngày 15 được khoanh tròn xanh đậm) -->
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="38dp" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="9" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="10" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="11" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="12" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="13" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="14" android:textColor="#191C19" android:textSize="13sp" />
-
-                            <FrameLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
-                                <TextView
-                                    android:id="@+id/cal_day_15"
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:layout_gravity="center"
-                                    android:background="@drawable/bg_circle_green_dark"
-                                    android:gravity="center"
-                                    android:text="15"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="13sp"
-                                    android:textStyle="bold" />
-                            </FrameLayout>
-                        </LinearLayout>
-
-                        <!-- Tuần 4: 16 - 22 (16-17 có nền dải nối màu xám nhạt, 17 tròn xanh đậm) -->
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="38dp" android:gravity="center_vertical" android:orientation="horizontal">
-
-                            <!-- Khối dải nối ngày 16 và 17 -->
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="32dp"
-                                android:layout_weight="2"
-                                android:background="@drawable/bg_range_pill"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:id="@+id/cal_day_16"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:text="16"
-                                    android:textColor="#191C19"
-                                    android:textSize="13sp" />
-
-                                <FrameLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1">
-
-                                    <TextView
-                                        android:id="@+id/cal_day_17"
-                                        android:layout_width="32dp"
-                                        android:layout_height="32dp"
-                                        android:layout_gravity="center"
-                                        android:background="@drawable/bg_circle_green_dark"
-                                        android:gravity="center"
-                                        android:text="17"
-                                        android:textColor="#FFFFFF"
-                                        android:textSize="13sp"
-                                        android:textStyle="bold" />
-                                </FrameLayout>
-                            </LinearLayout>
-
-                            <TextView android:id="@+id/cal_day_18" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="18" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:id="@+id/cal_day_19" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="19" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="20" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="21" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="22" android:textColor="#757575" android:textSize="13sp" />
-                        </LinearLayout>
-
-                        <!-- Tuần 5: 23 - 29 -->
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="38dp" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="23" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="24" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="25" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="26" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="27" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="28" android:textColor="#191C19" android:textSize="13sp" />
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="29" android:textColor="#757575" android:textSize="13sp" />
-                        </LinearLayout>
-
-                        <!-- Tuần 6: 30 -->
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="36dp" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="30" android:textColor="#191C19" android:textSize="13sp" />
-                            <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="6" />
-                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/createTripCalendarDays"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
                     </LinearLayout>
 
                     <!-- Mục 4: Ghi chú & Dự định khám phá -->
@@ -683,9 +589,9 @@
                         android:inputType="textMultiLine|textCapSentences"
                         android:minHeight="84dp"
                         android:padding="14dp"
-                        android:text="Chuyến đi phượt ngắm hoa dã quỳ, mang theo áo ấm, ưu tiên homestay gần chợ đêm và săn mây Đồi Đa Phú."
                         android:textColor="#191C19"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        tools:text="Chuyến đi phượt ngắm hoa dã quỳ, mang theo áo ấm, ưu tiên homestay gần chợ đêm và săn mây Đồi Đa Phú." />
 
                     <!-- Mục 4b: Ngân sách tham khảo -->
                     <LinearLayout
@@ -726,9 +632,9 @@
                             android:background="@null"
                             android:hint="Nhập ngân sách dự kiến..."
                             android:inputType="text"
-                            android:text="3.000.000đ / người"
                             android:textColor="#191C19"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            tools:text="3.000.000đ / người" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -809,6 +715,47 @@
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/newTripTip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_note_card"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_leaf_sprout" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/new_trip_tip_title"
+                        android:textColor="@color/text_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/new_trip_tip_body"
+                        android:textColor="@color/text_gray"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

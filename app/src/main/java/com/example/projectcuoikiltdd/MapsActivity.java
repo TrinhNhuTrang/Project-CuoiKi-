@@ -1,37 +1,29 @@
 package com.example.projectcuoikiltdd;
 
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.projectcuoikiltdd.data.entity.DiaDiem;
+import com.example.projectcuoikiltdd.databinding.ActivityMapsBinding;
+import com.example.projectcuoikiltdd.viewmodel.DiaDiemViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.projectcuoikiltdd.data.entity.DiaDiem;
-import com.example.projectcuoikiltdd.databinding.ActivityMapsBinding;
-import com.example.projectcuoikiltdd.viewmodel.DiaDiemViewModel;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
-    private GoogleMap mMap;
-    private ActivityMapsBinding binding;
-    private DiaDiemViewModel diaDiemViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 
-        binding = ActivityMapsBinding.inflate(getLayoutInflater());
+        ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        diaDiemViewModel = new ViewModelProvider(this).get(DiaDiemViewModel.class);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -43,12 +35,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
         LatLng hcm = new LatLng(10.7769, 106.7009);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hcm, 13));
 
         // Lắng nghe dữ liệu địa điểm du lịch từ SQLite (Room Database) và tự động cắm Marker
+        DiaDiemViewModel diaDiemViewModel = new ViewModelProvider(this).get(DiaDiemViewModel.class);
         diaDiemViewModel.getAll().observe(this, listDiaDiem -> {
             if (listDiaDiem != null && !listDiaDiem.isEmpty()) {
                 googleMap.clear();

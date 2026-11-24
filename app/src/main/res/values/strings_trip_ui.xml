@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="trip_search_clear">Xóa tìm kiếm</string>
+    <string name="trip_home_suggestion">Gợi ý điểm đến</string>
+    <string name="trip_home_destination">Kỳ quan Vịnh Hạ Long</string>
+    <string name="trip_home_heritage">DI SẢN UNESCO</string>
+    <string name="trip_home_description">Khám phá vịnh và trải nghiệm du thuyền.</string>
+    <string name="trip_home_discover">Khám phá →</string>
+    <string name="trip_date_start_hint">Chọn ngày bắt đầu</string>
+    <string name="trip_date_end_hint">Chọn ngày kết thúc</string>
+    <string name="trip_duration_value">%1$d ngày %2$d đêm</string>
+    <string name="trip_calendar_month">Tháng %1$d, %2$d</string>
+    <string name="trip_calendar_previous_month">Tháng trước</string>
+    <string name="trip_calendar_next_month">Tháng sau</string>
+    <string name="trip_calendar_full_date">Ngày %1$d tháng %2$d năm %3$d</string>
+    <string name="trip_calendar_viewing_date">Ngày %1$d/%2$d</string>
+    <string name="trip_calendar_today">Hôm nay (%1$d/%2$d)</string>
+    <string name="trip_calendar_selected">Đang chọn (%1$d/%2$d)</string>
+</resources>

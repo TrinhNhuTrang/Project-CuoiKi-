@@ -31,4 +31,11 @@
     <color name="text_dark">#1F2A1F</color>
     <color name="text_gray">#6B7B6B</color>
     <color name="star">#F5A623</color>
+    <color name="home_background">#EEFDEF</color>
+    <color name="home_toolbar">#FCFFFD</color>
+    <color name="home_icon_surface">#E8F8EA</color>
+    <color name="home_icon_selected">#C9FBC8</color>
+    <color name="home_action">#0D631B</color>
+    <color name="home_warm_icon">#925207</color>
+    <color name="home_empty_image">#E0F1E3</color>
 </resources>

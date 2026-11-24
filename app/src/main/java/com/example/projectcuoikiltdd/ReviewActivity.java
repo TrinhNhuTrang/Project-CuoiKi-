@@ -3,14 +3,13 @@ package com.example.projectcuoikiltdd;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ReviewActivity extends AppCompatActivity {
 
     private TextView[] stars;
-    private int rating = 5;
+    private int rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +32,6 @@ public class ReviewActivity extends AppCompatActivity {
                 updateStars();
             });
         }
-
-        findViewById(R.id.btnSubmit).setOnClickListener(v ->
-                Toast.makeText(this, "Đã gửi đánh giá " + rating + " sao", Toast.LENGTH_SHORT).show());
     }
 
     private void updateStars() {

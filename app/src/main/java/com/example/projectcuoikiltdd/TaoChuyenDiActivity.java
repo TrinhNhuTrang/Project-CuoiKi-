@@ -3,12 +3,11 @@ package com.example.projectcuoikiltdd;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,16 +15,25 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
 public class TaoChuyenDiActivity extends AppCompatActivity {
 
+    private static final String STATE_MONTH = "calendarMonth";
+    private static final String STATE_START_DATE = "startDate";
+    private static final String STATE_END_DATE = "endDate";
+
     private ImageView btnBack, imgAiCheckbox;
-    private EditText edtTripName, edtDestination, edtTripNote, edtBudget;
+    private EditText edtDestination;
     private TextView chipDalat, chipNinhBinh, chipPhuQuoc, chipHaGiang, chipSapa;
     private LinearLayout boxStartDate, boxEndDate, boxAiSuggest;
     private TextView tvStartDate, tvEndDate, tvDurationBadge;
-    private Button btnSaveTrip;
 
-    private int startDay = 15, endDay = 17;
+    private MonthCalendar calendar;
+    private Calendar startDate;
+    private Calendar endDate;
     private boolean isAiEnabled = true; // Mặc định bật gợi ý AI
 
     @Override
@@ -42,16 +50,13 @@ public class TaoChuyenDiActivity extends AppCompatActivity {
 
         anhXaView();
         xuLyChonDiemDen();
-        xuLyChonNgay();
+        setupCalendar(savedInstanceState);
         xuLyNutBam();
     }
 
     private void anhXaView() {
         btnBack = findViewById(R.id.btn_back);
-        edtTripName = findViewById(R.id.edt_trip_name);
         edtDestination = findViewById(R.id.edt_destination);
-        edtTripNote = findViewById(R.id.edt_trip_note);
-        edtBudget = findViewById(R.id.edt_budget);
 
         chipDalat = findViewById(R.id.chip_dalat);
         chipNinhBinh = findViewById(R.id.chip_ninhbinh);
@@ -67,7 +72,6 @@ public class TaoChuyenDiActivity extends AppCompatActivity {
 
         boxAiSuggest = findViewById(R.id.box_ai_suggest);
         imgAiCheckbox = findViewById(R.id.img_ai_checkbox);
-        btnSaveTrip = findViewById(R.id.btn_save_trip);
     }
 
     private void xuLyChonDiemDen() {
@@ -94,30 +98,89 @@ public class TaoChuyenDiActivity extends AppCompatActivity {
         edtDestination.setText(fullLocation);
     }
 
-    private void xuLyChonNgay() {
-        boxStartDate.setOnClickListener(v -> {
-            DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-                startDay = dayOfMonth;
-                tvStartDate.setText(String.format("%02d/%02d/%d", dayOfMonth, month + 1, year));
-                capNhatSoNgayDem();
-            }, 2026, 10, startDay);
-            dialog.show();
-        });
+    private void setupCalendar(Bundle state) {
+        calendar = new MonthCalendar(findViewById(R.id.tv_cal_month),
+                findViewById(R.id.createTripCalendarDays), findViewById(R.id.btn_cal_prev),
+                findViewById(R.id.btn_cal_next), this::selectCalendarDay);
 
-        boxEndDate.setOnClickListener(v -> {
-            DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-                endDay = dayOfMonth;
-                tvEndDate.setText(String.format("%02d/%02d/%d", dayOfMonth, month + 1, year));
-                capNhatSoNgayDem();
-            }, 2026, 10, endDay);
-            dialog.show();
-        });
+        startDate = MonthCalendar.restoreDate(state, STATE_START_DATE);
+        endDate = MonthCalendar.restoreDate(state, STATE_END_DATE);
+        Calendar month = MonthCalendar.restoreDate(state, STATE_MONTH);
+        showDates(month != null ? month : MonthCalendar.today());
+
+        boxStartDate.setOnClickListener(v -> openDatePicker(true));
+        boxEndDate.setOnClickListener(v -> openDatePicker(false));
     }
 
-    private void capNhatSoNgayDem() {
-        int days = Math.max(1, endDay - startDay + 1);
-        int nights = Math.max(0, days - 1);
-        tvDurationBadge.setText(days + " ngày " + nights + " đêm");
+    private void selectCalendarDay(Calendar day) {
+        if (startDate == null || endDate != null || day.before(startDate)) {
+            startDate = day;
+            endDate = null;
+        } else {
+            endDate = day;
+        }
+        showDates(day);
+    }
+
+    private void openDatePicker(boolean isStartDate) {
+        Calendar initial = isStartDate ? startDate : endDate;
+        if (initial == null) {
+            initial = !isStartDate && startDate != null ? startDate : MonthCalendar.today();
+        }
+
+        DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, day) -> {
+            Calendar selected = MonthCalendar.date(year, month, day);
+            if (isStartDate) {
+                startDate = selected;
+                if (endDate != null && endDate.before(startDate)) {
+                    endDate = null;
+                }
+            } else {
+                endDate = selected;
+            }
+            showDates(selected);
+        }, initial.get(Calendar.YEAR), initial.get(Calendar.MONTH),
+                initial.get(Calendar.DAY_OF_MONTH));
+
+        if (!isStartDate && startDate != null) {
+            Calendar minimum = Calendar.getInstance();
+            minimum.clear();
+            minimum.set(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH),
+                    startDate.get(Calendar.DAY_OF_MONTH));
+            dialog.getDatePicker().setMinDate(minimum.getTimeInMillis());
+        }
+        dialog.show();
+    }
+
+    private void showDates(Calendar month) {
+        calendar.show(month, startDate, endDate);
+        tvStartDate.setText(formatDate(startDate));
+        tvEndDate.setText(formatDate(endDate));
+
+        boolean rangeSelected = startDate != null && endDate != null;
+        tvDurationBadge.setVisibility(rangeSelected ? View.VISIBLE : View.GONE);
+        if (rangeSelected) {
+            long nights = TimeUnit.MILLISECONDS.toDays(
+                    endDate.getTimeInMillis() - startDate.getTimeInMillis());
+            tvDurationBadge.setText(getString(R.string.trip_duration_value, nights + 1, nights));
+        }
+    }
+
+    private String formatDate(Calendar date) {
+        if (date == null) {
+            return null;
+        }
+        return String.format(Locale.getDefault(), "%02d/%02d/%d",
+                date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH) + 1,
+                date.get(Calendar.YEAR));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        MonthCalendar.saveDate(outState, STATE_MONTH, calendar.getVisibleMonth());
+        MonthCalendar.saveDate(outState, STATE_START_DATE, startDate);
+        MonthCalendar.saveDate(outState, STATE_END_DATE, endDate);
     }
 
     private void xuLyNutBam() {
@@ -131,17 +194,6 @@ public class TaoChuyenDiActivity extends AppCompatActivity {
             } else {
                 imgAiCheckbox.setImageResource(R.drawable.bg_checkbox_unchecked);
             }
-        });
-
-        btnSaveTrip.setOnClickListener(v -> {
-            String tripName = edtTripName.getText().toString().trim();
-            if (tripName.isEmpty()) {
-                Toast.makeText(this, "Vui lòng nhập tên chuyến đi!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            String aiStatus = isAiEnabled ? " (Có gợi ý AI)" : "";
-            Toast.makeText(this, "Đã tạo chuyến đi: " + tripName + aiStatus, Toast.LENGTH_SHORT).show();
-            finish();
         });
     }
 }
