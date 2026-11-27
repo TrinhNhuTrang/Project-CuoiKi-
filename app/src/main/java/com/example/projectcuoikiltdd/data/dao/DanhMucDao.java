@@ -6,9 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-
 import com.example.projectcuoikiltdd.data.entity.DanhMuc;
-
 import java.util.List;
 
 @Dao
@@ -34,4 +32,3 @@ public interface DanhMucDao {
     @Query("SELECT COUNT(*) FROM DanhMuc")
     int getCount();
 }
-

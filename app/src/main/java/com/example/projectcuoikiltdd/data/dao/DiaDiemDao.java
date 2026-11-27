@@ -6,9 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-
 import com.example.projectcuoikiltdd.data.entity.DiaDiem;
-
 import java.util.List;
 
 @Dao
@@ -28,13 +26,10 @@ public interface DiaDiemDao {
     @Query("SELECT * FROM DiaDiem ORDER BY idDiadiem DESC")
     LiveData<List<DiaDiem>> getAll();
 
-    @Query("SELECT * FROM DiaDiem ORDER BY idDiadiem DESC")
-    List<DiaDiem> getAllSync();
-
-    @Query("SELECT * FROM DiaDiem WHERE idDanhMuc = :idDanhMuc")
+    @Query("SELECT * FROM DiaDiem WHERE idDanhMuc = :idDanhMuc ORDER BY idDiadiem DESC")
     LiveData<List<DiaDiem>> getByDanhMuc(int idDanhMuc);
 
-    @Query("SELECT * FROM DiaDiem WHERE tenDiaDiem LIKE '%' || :keyword || '%' OR diaChi LIKE '%' || :keyword || '%'")
+    @Query("SELECT * FROM DiaDiem WHERE tenDiaDiem LIKE '%' || :keyword || '%' OR diaChi LIKE '%' || :keyword || '%' ORDER BY tenDiaDiem ASC")
     LiveData<List<DiaDiem>> search(String keyword);
 
     @Query("SELECT * FROM DiaDiem WHERE idDiadiem = :id LIMIT 1")
@@ -43,4 +38,3 @@ public interface DiaDiemDao {
     @Query("SELECT COUNT(*) FROM DiaDiem")
     int getCount();
 }
-
