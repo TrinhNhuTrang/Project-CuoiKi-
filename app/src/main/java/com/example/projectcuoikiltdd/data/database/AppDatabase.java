@@ -31,7 +31,7 @@ import java.util.concurrent.Executors;
         ChuyenDi.class,
         DanhGia.class
     },
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {

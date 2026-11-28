@@ -38,13 +38,17 @@ public class ChuyenDi {
     @ColumnInfo(name = "chiPhiDuKien")
     private double chiPhiDuKien;
 
-    public ChuyenDi(int idNguoiDung, String tenChuyenDi, String diaChi, long ngayBatDau, long ngayKetThuc, double chiPhiDuKien) {
+    @ColumnInfo(name = "ghiChu")
+    private String ghiChu;
+
+    public ChuyenDi(int idNguoiDung, String tenChuyenDi, String diaChi, long ngayBatDau, long ngayKetThuc, double chiPhiDuKien, String ghiChu) {
         this.idNguoiDung = idNguoiDung;
         this.tenChuyenDi = tenChuyenDi;
         this.diaChi = diaChi;
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;
         this.chiPhiDuKien = chiPhiDuKien;
+        this.ghiChu = ghiChu;
     }
 
     public int getIdChuyenDi() {
@@ -101,5 +105,13 @@ public class ChuyenDi {
 
     public void setChiPhiDuKien(double chiPhiDuKien) {
         this.chiPhiDuKien = chiPhiDuKien;
+    }
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
     }
 }

@@ -4,37 +4,53 @@ import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.projectcuoikiltdd.data.entity.ChuyenDi;
+import com.example.projectcuoikiltdd.utils.UserSession;
+import com.example.projectcuoikiltdd.viewmodel.ChuyenDiViewModel;
+
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class TaoChuyenDiActivity extends AppCompatActivity {
 
+    public static final String EXTRA_TRIP_ID = "extra_trip_id";
+
     private static final String STATE_MONTH = "calendarMonth";
     private static final String STATE_START_DATE = "startDate";
     private static final String STATE_END_DATE = "endDate";
 
     private ImageView btnBack, imgAiCheckbox;
-    private EditText edtDestination;
+    private EditText edtTripName, edtDestination, edtBudget, edtTripNote;
     private TextView chipDalat, chipNinhBinh, chipPhuQuoc, chipHaGiang, chipSapa;
     private LinearLayout boxStartDate, boxEndDate, boxAiSuggest;
-    private TextView tvStartDate, tvEndDate, tvDurationBadge;
+    private TextView tvStartDate, tvEndDate, tvDurationBadge, tvHeaderTitle;
+    private Button btnSaveTrip;
 
     private MonthCalendar calendar;
     private Calendar startDate;
     private Calendar endDate;
-    private boolean isAiEnabled = true; // Mặc định bật gợi ý AI
+    private boolean isAiEnabled = true;
+
+    private ChuyenDiViewModel viewModel;
+    private UserSession userSession;
+    private int editingTripId = -1;
+    private ChuyenDi editingTrip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +64,30 @@ public class TaoChuyenDiActivity extends AppCompatActivity {
             return insets;
         });
 
+        viewModel = new ViewModelProvider(this).get(ChuyenDiViewModel.class);
+        userSession = UserSession.getInstance(this);
+
         anhXaView();
         xuLyChonDiemDen();
         setupCalendar(savedInstanceState);
         xuLyNutBam();
+
+        if (getIntent() != null && getIntent().hasExtra(EXTRA_TRIP_ID)) {
+            editingTripId = getIntent().getIntExtra(EXTRA_TRIP_ID, -1);
+            if (editingTripId > 0) {
+                setupEditMode();
+            }
+        }
     }
 
     private void anhXaView() {
         btnBack = findViewById(R.id.btn_back);
+        tvHeaderTitle = findViewById(R.id.tv_start_date); // Default header text view is inside relative layout or custom
+        edtTripName = findViewById(R.id.edt_trip_name);
         edtDestination = findViewById(R.id.edt_destination);
+        edtBudget = findViewById(R.id.edt_budget);
+        edtTripNote = findViewById(R.id.edt_trip_note);
+        btnSaveTrip = findViewById(R.id.btn_save_trip);
 
         chipDalat = findViewById(R.id.chip_dalat);
         chipNinhBinh = findViewById(R.id.chip_ninhbinh);
@@ -72,6 +103,38 @@ public class TaoChuyenDiActivity extends AppCompatActivity {
 
         boxAiSuggest = findViewById(R.id.box_ai_suggest);
         imgAiCheckbox = findViewById(R.id.img_ai_checkbox);
+    }
+
+    private void setupEditMode() {
+        btnSaveTrip.setText("Cập Nhật Chuyến Đi");
+        viewModel.getById(editingTripId).observe(this, trip -> {
+            if (trip != null && editingTrip == null) {
+                editingTrip = trip;
+                if (edtTripName != null && trip.getTenChuyenDi() != null) {
+                    edtTripName.setText(trip.getTenChuyenDi());
+                }
+                if (edtDestination != null && trip.getDiaChi() != null) {
+                    edtDestination.setText(trip.getDiaChi());
+                }
+                if (edtBudget != null && trip.getChiPhiDuKien() > 0) {
+                    DecimalFormat df = new DecimalFormat("#");
+                    edtBudget.setText(df.format(trip.getChiPhiDuKien()));
+                }
+                if (edtTripNote != null && trip.getGhiChu() != null) {
+                    edtTripNote.setText(trip.getGhiChu());
+                }
+
+                if (trip.getNgayBatDau() > 0) {
+                    startDate = Calendar.getInstance();
+                    startDate.setTimeInMillis(trip.getNgayBatDau());
+                }
+                if (trip.getNgayKetThuc() > 0) {
+                    endDate = Calendar.getInstance();
+                    endDate.setTimeInMillis(trip.getNgayKetThuc());
+                }
+                showDates(startDate != null ? startDate : MonthCalendar.today());
+            }
+        });
     }
 
     private void xuLyChonDiemDen() {
@@ -186,7 +249,6 @@ public class TaoChuyenDiActivity extends AppCompatActivity {
     private void xuLyNutBam() {
         btnBack.setOnClickListener(v -> finish());
 
-        // Bấm bật/tắt Trợ lý AI Việt Hành
         boxAiSuggest.setOnClickListener(v -> {
             isAiEnabled = !isAiEnabled;
             if (isAiEnabled) {
@@ -195,5 +257,85 @@ public class TaoChuyenDiActivity extends AppCompatActivity {
                 imgAiCheckbox.setImageResource(R.drawable.bg_checkbox_unchecked);
             }
         });
+
+        if (btnSaveTrip != null) {
+            btnSaveTrip.setOnClickListener(v -> saveTrip());
+        }
+    }
+
+    private void saveTrip() {
+        String tripName = edtTripName != null ? edtTripName.getText().toString().trim() : "";
+        String destination = edtDestination != null ? edtDestination.getText().toString().trim() : "";
+        String budgetRaw = edtBudget != null ? edtBudget.getText().toString().trim() : "";
+        String note = edtTripNote != null ? edtTripNote.getText().toString().trim() : "";
+
+        if (tripName.isEmpty()) {
+            if (edtTripName != null) {
+                edtTripName.setError("Vui lòng nhập tên chuyến đi!");
+                edtTripName.requestFocus();
+            }
+            Toast.makeText(this, "Vui lòng nhập tên chuyến đi!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (destination.isEmpty()) {
+            if (edtDestination != null) {
+                edtDestination.setError("Vui lòng nhập điểm đến!");
+                edtDestination.requestFocus();
+            }
+            Toast.makeText(this, "Vui lòng nhập điểm đến / tỉnh thành!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (startDate == null || endDate == null) {
+            Toast.makeText(this, "Vui lòng chọn ngày bắt đầu và kết thúc!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (endDate.before(startDate)) {
+            Toast.makeText(this, "Ngày kết thúc không được trước ngày bắt đầu!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        double budget = 0;
+        if (!budgetRaw.isEmpty()) {
+            String cleanBudget = budgetRaw.replaceAll("[^0-9.]", "");
+            try {
+                if (!cleanBudget.isEmpty()) {
+                    budget = Double.parseDouble(cleanBudget);
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Ngân sách không hợp lệ!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        int currentUserId = userSession.getCurrentUserId(this);
+
+        if (editingTrip != null) {
+            editingTrip.setTenChuyenDi(tripName);
+            editingTrip.setDiaChi(destination);
+            editingTrip.setNgayBatDau(startDate.getTimeInMillis());
+            editingTrip.setNgayKetThuc(endDate.getTimeInMillis());
+            editingTrip.setChiPhiDuKien(budget);
+            editingTrip.setGhiChu(note);
+
+            viewModel.update(editingTrip);
+            Toast.makeText(this, "Đã cập nhật chuyến đi!", Toast.LENGTH_SHORT).show();
+        } else {
+            ChuyenDi newTrip = new ChuyenDi(
+                    currentUserId,
+                    tripName,
+                    destination,
+                    startDate.getTimeInMillis(),
+                    endDate.getTimeInMillis(),
+                    budget,
+                    note
+            );
+            viewModel.insert(newTrip);
+            Toast.makeText(this, "Đã tạo chuyến đi mới thành công!", Toast.LENGTH_SHORT).show();
+        }
+
+        finish();
     }
 }

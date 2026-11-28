@@ -4,12 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.projectcuoikiltdd.adapter.ChuyenDiAdapter;
+import com.example.projectcuoikiltdd.data.entity.ChuyenDi;
+import com.example.projectcuoikiltdd.utils.UserSession;
+import com.example.projectcuoikiltdd.viewmodel.ChuyenDiViewModel;
 
 import java.util.Calendar;
 
@@ -19,6 +29,12 @@ public class LichTrinhActivity extends AppCompatActivity {
 
     private MonthCalendar calendar;
     private Calendar selectedDay;
+
+    private RecyclerView recyclerViewTrips;
+    private TextView tvFilterLabel;
+    private ChuyenDiAdapter adapter;
+    private ChuyenDiViewModel viewModel;
+    private UserSession userSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +48,63 @@ public class LichTrinhActivity extends AppCompatActivity {
             return insets;
         });
 
+        userSession = UserSession.getInstance(this);
+        viewModel = new ViewModelProvider(this).get(ChuyenDiViewModel.class);
+
         findViewById(R.id.btn_tao_chuyen_di).setOnClickListener(v ->
                 startActivity(new Intent(this, TaoChuyenDiActivity.class)));
         findViewById(R.id.itineraryDiscover).setOnClickListener(v ->
                 startActivity(new Intent(this, TimKiemActivity.class)));
+
+        setupRecyclerView();
         setupCalendar(savedInstanceState);
+        observeTrips();
+
         BottomNavigation.setup(this, findViewById(R.id.bottom_navigation), R.id.nav_itinerary);
+    }
+
+    private void setupRecyclerView() {
+        recyclerViewTrips = findViewById(R.id.itineraryTrips);
+        tvFilterLabel = findViewById(R.id.tv_filter_label);
+
+        if (recyclerViewTrips != null) {
+            recyclerViewTrips.setLayoutManager(new LinearLayoutManager(this));
+            adapter = new ChuyenDiAdapter(this::onEditTrip, this::onConfirmDeleteTrip);
+            recyclerViewTrips.setAdapter(adapter);
+        }
+    }
+
+    private void observeTrips() {
+        int currentUserId = userSession.getCurrentUserId(this);
+        viewModel.getByNguoiDung(currentUserId).observe(this, tripList -> {
+            if (adapter != null) {
+                adapter.setTripList(tripList);
+            }
+            if (tvFilterLabel != null) {
+                int count = tripList != null ? tripList.size() : 0;
+                tvFilterLabel.setText("Tất cả (" + count + ")");
+            }
+        });
+    }
+
+    private void onEditTrip(ChuyenDi trip) {
+        if (trip == null) return;
+        Intent intent = new Intent(this, TaoChuyenDiActivity.class);
+        intent.putExtra(TaoChuyenDiActivity.EXTRA_TRIP_ID, trip.getIdChuyenDi());
+        startActivity(intent);
+    }
+
+    private void onConfirmDeleteTrip(ChuyenDi trip) {
+        if (trip == null) return;
+        new AlertDialog.Builder(this)
+                .setTitle("Xóa chuyến đi")
+                .setMessage("Bạn có chắc chắn muốn xóa chuyến đi '" + (trip.getTenChuyenDi() != null ? trip.getTenChuyenDi() : "") + "'?")
+                .setPositiveButton("Xóa", (dialog, which) -> {
+                    viewModel.delete(trip);
+                    Toast.makeText(LichTrinhActivity.this, "Đã xóa chuyến đi!", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Hủy", null)
+                .show();
     }
 
     private void setupCalendar(Bundle state) {
